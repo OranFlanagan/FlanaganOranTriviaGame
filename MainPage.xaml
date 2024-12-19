@@ -26,16 +26,21 @@
 
                     <Button Text="THE CHASE IS ON!" x:Name="BeginGame" Grid.Row="1" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="Red" TextColor="Silver" Clicked="PlayBtn_Clicked" FontAttributes="Bold" FontSize="Large"/>
 
-
                     <ImageButton Source="bradley_walsh.png" Grid.Row="1" Grid.Column="0" HeightRequest="200" WidthRequest="250" HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="Red" Clicked="Instruction_Button_Clicked"/>
                     <Label Text="Instructions" Grid.Row="2" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="Red" FontSize="35" HeightRequest="50"/>
                     <ImageButton Source="the_chasers.png" Grid.Row="1" Grid.Column="2" HorizontalOptions="Center" VerticalOptions="Center"  HeightRequest="200" WidthRequest="300" BackgroundColor="Red" Clicked="Setting_Button_Clicked"/>
                     <Label Text="Settings" Grid.Row="2" Grid.Column="2" HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="Red" FontSize="35"/>
                 </Grid>
-                <CollectionView x:Name="PlayersCollectionView" IsVisible="True">
+                <CollectionView x:Name="PlayersCollectionView" IsVisible="True" ItemsSource="{Binding TriviaQuestionsHard}">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
                             <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                                <Label Text="{Binding Question}" FontSize="20" />
+                                <Label Text="Options:" FontAttributes="Bold" />
+                                <Label Text="{Binding CorrectAnswer}" TextColor="Green" />
+                                <Label Text="{Binding IncorrectAnswers[0]}" />
+                                <Label Text="{Binding IncorrectAnswers[1]}" />
+                                <Label Text="{Binding IncorrectAnswers[2]}" />
                                 <Label Text="{Binding name}" FontSize="25"/>
                                 <Label Text="{Binding score}" FontSize="25" Margin="4,4,4,4"/>
                             </StackLayout>

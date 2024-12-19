@@ -3,10 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="FlanaganOranTriviaGame.Settings"
              Title="Settings">
-    <VerticalStackLayout>
-        <Label Text="Welcome the settings" FontAttributes="Bold" FontSize="Header"/>
-        <Label Text="Here you can choose your chaser!"/>
-        <Label Text="Switch to light mode"/>
-        <Label Text="And finally change your names"/>
-    </VerticalStackLayout>
+    <ScrollView>
+        <VerticalStackLayout>
+            <Label Text="Welcome the settings" FontAttributes="Bold" FontSize="Header"/>
+            <Label Text="Here you can meet your chaser! The Chaser you will be playing against is Shawn 'The Dark Destroyer' Wallace"/>
+            <Image Source="the_chaser.png"/>
+            <Button Text="Switch between dark mode and light mode"/>
+           
+            <Label Text="{Binding Player1}"/>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

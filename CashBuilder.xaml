@@ -4,5 +4,8 @@
              x:Class="FlanaganOranTriviaGame.CashBuilder"
              Title="CashBuilder">
     <VerticalStackLayout>
+        <Label Text="Welcome to the cash builder"/>
+        <Button Text="Are you redy to begin?" Clicked="CashBuilder_Clicked"/>
+
     </VerticalStackLayout>
 </ContentPage>
