@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FlanaganOranTriviaGame.InstructionPage"
+             Title="InstructionPage">
+    <VerticalStackLayout>
+        <Label Text="Instructions for The Chase:" FontSize="Header" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+        <Label Text="The Chase...It isn't just a Quiz, its a race."/>
+        <Label Text=""/>
+        <Label Text="Begin the game by clicking start and once you and your friends have all placed entered their names the game will begin. 
+       Once you click begin you are put into the cash builder round answering a minutes worth of quick fire questions to build up as much as you can (each correct answer is £1,000
+       Now its time for each contestant to each face and go head-to-head with the chaser
+       If players answers questions correctly they can move one step away towards saftey, but if the Chaser gets the question right they move one step closer to catching you
+       If the Chaser catches the contestent, they lose their cash."/>
+    </VerticalStackLayout>
+</ContentPage>

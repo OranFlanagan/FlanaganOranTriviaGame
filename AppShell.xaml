@@ -11,5 +11,11 @@
         Title="Home"
         ContentTemplate="{DataTemplate local:MainPage}"
         Route="MainPage" />
+    
+    <ShellContent Title="Cash Builder"
+    ContentTemplate="{DataTemplate local:CashBuilder}"/>
+
+    <ShellContent Title="Settings:"
+    ContentTemplate="{DataTemplate local:CashBuilder}"/>
 
 </Shell>
