@@ -2,10 +2,20 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="FlanaganOranTriviaGame.CashBuilder"
-             Title="CashBuilder">
-    <VerticalStackLayout>
-        <Label Text="Welcome to the cash builder"/>
-        <Button Text="Are you redy to begin?" Clicked="CashBuilder_Clicked"/>
+             Title="CashBuilder"
+             BackgroundImageSource="background.png">
+    <VerticalStackLayout Padding="20" Spacing="20">
 
+        <Label x:Name="QuestionLabel" FontSize="20" TextColor="White" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Center"/>
+        <VerticalStackLayout Spacing="10">
+            <Button x:Name="AnswerButton1" Text="Answer 1" ZIndex="1" Clicked="OnAnswerClicked" />
+            <Button x:Name="AnswerButton2" Text="Answer 2" ZIndex="1" Clicked="OnAnswerClicked" />
+            <Button x:Name="AnswerButton3" Text="Answer 3" ZIndex="1" Clicked="OnAnswerClicked" />
+
+        </VerticalStackLayout>
+
+        <HorizontalStackLayout Spacing="20" HorizontalOptions="Center">
+            <Button Text="Next" Clicked="OnNextClicked"/>
+        </HorizontalStackLayout>
     </VerticalStackLayout>
 </ContentPage>

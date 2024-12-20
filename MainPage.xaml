@@ -24,12 +24,14 @@
                         <ColumnDefinition Width="50"/>
                     </Grid.ColumnDefinitions>
 
-                    <Button Text="THE CHASE IS ON!" x:Name="BeginGame" Grid.Row="1" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="Red" TextColor="Silver" Clicked="PlayBtn_Clicked" FontAttributes="Bold" FontSize="Large"/>
-
+                    <Button Text="THE CHASE IS ON!" x:Name="BeginGame" Grid.Row="2" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="Red" TextColor="Silver" Clicked="PlayBtn_Clicked" FontAttributes="Bold" FontSize="Large"/>
+                    <Button Text="Enter the players name" Grid.Row="1" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="Red" TextColor="Silver" Clicked="EnterNames_Clicked" FontAttributes="Bold" FontSize="Large"/>
+                    
                     <ImageButton Source="bradley_walsh.png" Grid.Row="1" Grid.Column="0" HeightRequest="200" WidthRequest="250" HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="Red" Clicked="Instruction_Button_Clicked"/>
                     <Label Text="Instructions" Grid.Row="2" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="Red" FontSize="35" HeightRequest="50"/>
                     <ImageButton Source="the_chasers.png" Grid.Row="1" Grid.Column="2" HorizontalOptions="Center" VerticalOptions="Center"  HeightRequest="200" WidthRequest="300" BackgroundColor="Red" Clicked="Setting_Button_Clicked"/>
                     <Label Text="Settings" Grid.Row="2" Grid.Column="2" HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="Red" FontSize="35"/>
+                
                 </Grid>
                 <CollectionView x:Name="PlayersCollectionView" IsVisible="True" ItemsSource="{Binding TriviaQuestionsHard}">
                     <CollectionView.ItemTemplate>

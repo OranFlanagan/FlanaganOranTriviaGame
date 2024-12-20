@@ -2,15 +2,17 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="FlanaganOranTriviaGame.Settings"
-             Title="Settings">
+             Title="Settings"
+             Style="{DynamicResource ContentPageStyle}">
     <ScrollView>
-        <VerticalStackLayout>
+        <StackLayout>
             <Label Text="Welcome the settings" FontAttributes="Bold" FontSize="Header"/>
             <Label Text="Here you can meet your chaser! The Chaser you will be playing against is Shawn 'The Dark Destroyer' Wallace"/>
             <Image Source="the_chaser.png"/>
-            <Button Text="Switch between dark mode and light mode"/>
-           
+            <Button Text="Dark mode" Clicked="DarkMode_Clicked"/>
+            <Button Text="Light mode" Clicked="LightMode_Clicked"/>
+
             <Label Text="{Binding Player1}"/>
-        </VerticalStackLayout>
+        </StackLayout>
     </ScrollView>
 </ContentPage>

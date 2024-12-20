@@ -1,15 +1,20 @@
+using System.Net.Http.Json;
+
 namespace FlanaganOranTriviaGame.TriviaQuestions;
 
-public class TriviaServiceEasy : ContentPage
+public class TriviaServiceEasy
 {
-	public TriviaServiceEasy()
-	{
-		Content = new VerticalStackLayout
-		{
-			Children = {
-				new Label { HorizontalOptions = LayoutOptions.Center, VerticalOptions = LayoutOptions.Center, Text = "Welcome to .NET MAUI!"
-				}
-			}
-		};
-	}
+    private readonly HttpClient _httpClient;
+
+    public TriviaServiceEasy()
+    {
+        _httpClient = new HttpClient(); // Set up the tool to talk to the API
+    }
+
+    public async Task<TriviaResponseEasy> FetchTriviaAsync()
+    {
+        var url = "https://opentdb.com/api.php?amount=4&category=9&difficulty=easy&type=multiple"; // Replace with the actual API URL
+        var triviaResponseEasy = await _httpClient.GetFromJsonAsync<TriviaResponseEasy>(url); // Fetch and parse JSON
+        return triviaResponseEasy; // Return the trivia data
+    }
 }
