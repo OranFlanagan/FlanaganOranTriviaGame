@@ -1,8 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="FlanaganOranTriviaGame.MainPage"
-             BackgroundColor="Black">
+             x:Class="FlanaganOranTriviaGame.MainPage">
 
 
     <ScrollView>
@@ -33,7 +32,7 @@
                     <Label Text="Settings" Grid.Row="2" Grid.Column="2" HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="Red" FontSize="35"/>
                 
                 </Grid>
-                <CollectionView x:Name="PlayersCollectionView" IsVisible="True" ItemsSource="{Binding TriviaQuestionsHard}">
+               <CollectionView x:Name="PlayersCollectionView" IsVisible="True" ItemsSource="{Binding TriviaQuestions}">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
                             <StackLayout Orientation="Horizontal" HorizontalOptions="Center">

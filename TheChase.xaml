@@ -23,9 +23,9 @@
             </Grid.ColumnDefinitions>
         </Grid>
         <Button BackgroundColor="Blue" Grid.Row="4" Grid.Column="0" WidthRequest="400"/>
-        <Button BackgroundColor="Blue" TextColor="White"  Text="£150,000" Grid.Row="4" Grid.Column="1" WidthRequest="350"/>
-        <Button BackgroundColor="Blue" TextColor="White"  Text="hello" Grid.Row="4" Grid.Column="2" WidthRequest="300"/>
-        <Button BackgroundColor="Blue" TextColor="Red"  Text="-$100" WidthRequest="250" />
+        <Button BackgroundColor="Blue" TextColor="White"  Text="£150,000" Grid.Row="4" Grid.Column="1" WidthRequest="350" Clicked="HigherOffer_Clicked"/>
+        <Button BackgroundColor="Blue" TextColor="White"  Text="hello" Grid.Row="4" Grid.Column="2" WidthRequest="300" Clicked="MiddleOffer_Clicked"/>
+        <Button BackgroundColor="Blue" TextColor="Red"  Text="-$100" WidthRequest="250" Clicked="LowerOffer_Clicked"/>
         <Button BackgroundColor="Blue" Grid.Row="4" Grid.Column="4" WidthRequest="200"/>
         <Button BackgroundColor="Blue" Grid.Row="4" Grid.Column="5" WidthRequest="150"/>
         <Button BackgroundColor="Blue" Grid.Row="4" Grid.Column="6" WidthRequest="100"/>

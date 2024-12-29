@@ -1,19 +1,21 @@
-﻿namespace FlanaganOranTriviaGame
+﻿using Plugin.Maui.Audio;
+using Microsoft.Maui.Controls;
+
+namespace FlanaganOranTriviaGame
 {
     public partial class App : Application
     {
-        public App()
+        public App(IAudioManager audioManager)
         {
             InitializeComponent();
 
-            MainPage = new NavigationPage(new MainPage());
+            MainPage = new NavigationPage(new MainPage(audioManager));
 
+            //Application.Current.OnAppThemeChanged += OnAppThemeChanged;
         }
 
-        /*protected override void OnAppThemeChanged(AppThemeChangedEventArgs args)
+        /*private void OnAppThemeChanged(object sender, AppThemeChangedEventArgs e)
         {
-            base.OnAppThemeChanged(args);
-
             foreach (var page in Current.MainPage.Navigation.NavigationStack)
             {
                 if (page is ContentPage contentPage)
@@ -25,7 +27,7 @@
 
         private void ApplyTheme(ContentPage page)
         {
-            if(UserAppTheme == AppTheme.Dark) 
+            if (UserAppTheme == AppTheme.Dark)
             {
                 page.Resources["PageStyle"] = Current.Resources["DarkThemeStyle"];
             }

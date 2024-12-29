@@ -7,23 +7,17 @@ public partial class TheChase : ContentPage
 	{
 		InitializeComponent();
 	}
-	private async void HigherOption_Clicked()
-	{
-
-        Player1 = await DisplayPromptAsync("Player one", "Enter your name");
-        if (Player1 == null)
-        {
-            await DisplayAlert("Error", "You must enter a name to play.", "OK");
-            return;
-        }
+    private async void HigherOffer_Clicked(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new HigherOffer());
     }
-	private async void Middle_Clicked()
-	{
+    private async void MiddleOffer_Clicked(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new MiddleOffer());
+    }
 
-	}
-
-	private async void LowerOption_Clicked()
-	{
-
-	}
+    private async void LowerOffer_Clicked(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new LowerOffer());
+    }
 }

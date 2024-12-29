@@ -5,6 +5,7 @@ using System.Net.Http.Json;
 using static System.Net.WebRequestMethods;
 using FlanaganOranTriviaGame.TriviaQuestions;
 using Microsoft.Maui.Platform;
+using Plugin.Maui.Audio;
 
 namespace FlanaganOranTriviaGame
 {
@@ -18,20 +19,26 @@ namespace FlanaganOranTriviaGame
         private bool isDarkTheme = true;
         //random is being used to act as the chaser
         private readonly TriviaServiceHard _triviaService;
+        private readonly IAudioManager audioManager;
 
-        public MainPage()
+        public MainPage(IAudioManager audioManager)
         {
             InitializeComponent();
             _triviaService = new TriviaServiceHard();
+            this.audioManager = audioManager;
 
         }
 
         private async void PlayBtn_Clicked(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new CashBuilder());
+            var begin= audioManager.CreatePlayer(await FileSystem.OpenAppPackageFileAsync("_The_Chase_Theme_Music_.mp3"));
+            begin.Play();
         }
         private async void EnterNames_Clicked(object sender, EventArgs e)
         {
+            var enterNames = audioManager.CreatePlayer(await FileSystem.OpenAppPackageFileAsync("button_click_sound.mp3"));
+            enterNames.Play();
             Button button = (Button)sender;
 
             Player1 = await DisplayPromptAsync("Player one", "Enter your name");
@@ -66,11 +73,15 @@ namespace FlanaganOranTriviaGame
 
         private async void Instruction_Button_Clicked(object sender, EventArgs e)
         {
+            var instruction = audioManager.CreatePlayer(await FileSystem.OpenAppPackageFileAsync("button_click_sound.mp3"));
+            instruction.Play();
             await Navigation.PushAsync(new InstructionPage());
         }
 
         private async void Setting_Button_Clicked(object sender, EventArgs e)
         {
+            var setting = audioManager.CreatePlayer(await FileSystem.OpenAppPackageFileAsync("button_click_sound.mp3"));
+            setting.Play();
             await Navigation.PushAsync(new Settings());
         }
     }

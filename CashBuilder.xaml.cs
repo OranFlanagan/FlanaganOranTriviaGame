@@ -1,4 +1,11 @@
+using Microsoft.Maui.Dispatching;
+using System.Security.Cryptography.X509Certificates;
+using Microsoft.Maui.Controls;
+using System.Net.Http.Json;
+using static System.Net.WebRequestMethods;
 using FlanaganOranTriviaGame.TriviaQuestions;
+using Microsoft.Maui.Platform;
+using Plugin.Maui.Audio;
 using System.ComponentModel;
 using System.Timers;
 
@@ -10,7 +17,7 @@ public partial class CashBuilder : ContentPage
     private List<TriviaQuestionCashBuilder> _CashBuilderQuestions;
     private int _currentQuestionIndex = 0;
     public int cashBuilder = 0;
-    private System.Timers.Timer _timer; // Specify the full namespace
+    private System.Timers.Timer _timer;
     private bool _isTimeUp = false;
     public CashBuilder()
     {
@@ -39,13 +46,16 @@ public partial class CashBuilder : ContentPage
 
     private void ShowQuestion(int index)
     {
-        if (_CashBuilderQuestions == null || index < 0 || index >= _CashBuilderQuestions.Count)
+        if(AnswerButton1 == null || AnswerButton2 == null || AnswerButton3 == null || QuestionLabel == null)
         {
+            Console.WriteLine("No questions to show.");
             return;
         }
-        AnswerButton1.Text = string.Empty;
-        AnswerButton2.Text = string.Empty;
-        AnswerButton3.Text = string.Empty;
+        if (_CashBuilderQuestions == null || index < 0 || index >= _CashBuilderQuestions.Count)
+        {
+            Console.WriteLine("No questions to show.");
+            return;
+        }
 
         var question = _CashBuilderQuestions[index];
         Console.WriteLine($"Showing question: {question.Question}");
@@ -64,12 +74,13 @@ public partial class CashBuilder : ContentPage
                 };
 
         answers = answers.OrderBy(x => random.Next()).ToList();
+        Console.WriteLine($"Answers: {string.Join(", ", answers)}");
 
         if (answers.Count >= 3)
         {
-            Console.WriteLine($"AnswerButton1 Text: {answers[0]}");
-            Console.WriteLine($"AnswerButton2 Text: {answers[1]}");
-            Console.WriteLine($"AnswerButton3 Text: {answers[2]}");
+            Console.WriteLine($"Assigning AnswerButton1: {answers[0]}");
+            Console.WriteLine($"Assigning AnswerButton2: {answers[1]}");
+            Console.WriteLine($"Assigning AnswerButton3:  {answers[2]}");
 
             AnswerButton1.Text = System.Web.HttpUtility.HtmlDecode(answers[0]);
             AnswerButton2.Text = System.Web.HttpUtility.HtmlDecode(answers[1]);
@@ -78,6 +89,14 @@ public partial class CashBuilder : ContentPage
             AnswerButton1.CommandParameter = answers[0] == question.CorrectAnswer;
             AnswerButton2.CommandParameter = answers[1] == question.CorrectAnswer;
             AnswerButton3.CommandParameter = answers[2] == question.CorrectAnswer;
+
+            Console.WriteLine($"AnswerButton1 Text: {AnswerButton1.Text}");
+            Console.WriteLine($"AnswerButton2 Text: {AnswerButton2.Text}");
+            Console.WriteLine($"AnswerButton3 Text: {AnswerButton3.Text}");
+        }
+        else
+        {
+            Console.WriteLine("Not enough answers to show.");
         }
     }
 
@@ -98,9 +117,7 @@ public partial class CashBuilder : ContentPage
 
     private void OnAnswerClicked(object sender, EventArgs e)
     {
-        AnswerButton1.Clicked += OnAnswerClicked;
-        AnswerButton2.Clicked += OnAnswerClicked;
-        AnswerButton3.Clicked += OnAnswerClicked;
+        AnswerButton3.BackgroundColor = Colors.DarkGreen;
 
         if (sender is Button button && button.CommandParameter is bool isCorrect)
         {
