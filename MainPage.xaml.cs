@@ -11,64 +11,38 @@ namespace FlanaganOranTriviaGame
 {
     public partial class MainPage : ContentPage
     {
-        public string Player1;
-        public string Player2;
-        public string Player3;
-        public string Player4;
+        public List<string> Players { get; set; } = new List<string>();
         public int CashBuilder;
         private bool isDarkTheme = true;
-        //random is being used to act as the chaser
-        private readonly TriviaServiceHard _triviaService;
         private readonly IAudioManager audioManager;
+        //private int _currentPlayerIndex = 0;
 
         public MainPage(IAudioManager audioManager)
         {
             InitializeComponent();
-            _triviaService = new TriviaServiceHard();
             this.audioManager = audioManager;
-
         }
 
-        private async void PlayBtn_Clicked(object sender, EventArgs e)
-        {
-            await Navigation.PushAsync(new CashBuilder());
-            var begin= audioManager.CreatePlayer(await FileSystem.OpenAppPackageFileAsync("_The_Chase_Theme_Music_.mp3"));
-            begin.Play();
-        }
         private async void EnterNames_Clicked(object sender, EventArgs e)
         {
             var enterNames = audioManager.CreatePlayer(await FileSystem.OpenAppPackageFileAsync("button_click_sound.mp3"));
             enterNames.Play();
-            Button button = (Button)sender;
 
-            Player1 = await DisplayPromptAsync("Player one", "Enter your name");
-            if (Player1 == null)
+            Players.Clear();
+            for (int i = 1; i <= 4; i++)
             {
-                await DisplayAlert("Error", "You must enter a name to play.", "OK");
-                return;
+                string playerName = await DisplayPromptAsync($"Player {i}", "Enter your name");
+                
+                if (string.IsNullOrWhiteSpace(playerName))
+                {
+                    await DisplayAlert("Error", $"Player{i} must enter a valid name to play.", "OK");
+                    return;
+                }
+                    Players.Add(playerName);
             }
-
-            Player2 = await DisplayPromptAsync("Player two", "Enter your name");
-            if (Player2 == null)
-            {
-                await DisplayAlert("Error", "You must enter a name to play.", "OK");
-                return;
-            }
-
-            Player3 = await DisplayPromptAsync("Player 3", "Enter your name");
-            if (Player3 == null)
-            {
-                await DisplayAlert("Error", "You must enter a name to play.", "OK");
-                return;
-            }
-
-            Player4 = await DisplayPromptAsync("Enter", "Enter your name");
-            if (Player4 == null)
-            {
-                await DisplayAlert("Error", "You must enter a name to play.", "OK");
-                return;
-
-            }
+            await Navigation.PushAsync(new CashBuilder());
+            var begin = audioManager.CreatePlayer(await FileSystem.OpenAppPackageFileAsync("_The_Chase_Theme_Music_.mp3"));
+            begin.Play();
         }
 
         private async void Instruction_Button_Clicked(object sender, EventArgs e)

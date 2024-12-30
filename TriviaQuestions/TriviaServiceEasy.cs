@@ -13,7 +13,7 @@ public class TriviaServiceEasy
 
     public async Task<TriviaResponseEasy> FetchTriviaAsync()
     {
-        var url = "https://opentdb.com/api.php?amount=4&category=9&difficulty=easy&type=multiple"; // Replace with the actual API URL
+        var url = "https://opentdb.com/api.php?amount=10&category=9&difficulty=easy&type=multiple"; // Replace with the actual API URL
         var triviaResponseEasy = await _httpClient.GetFromJsonAsync<TriviaResponseEasy>(url); // Fetch and parse JSON
         return triviaResponseEasy; // Return the trivia data
     }

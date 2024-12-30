@@ -19,6 +19,8 @@ public partial class CashBuilder : ContentPage
     public int cashBuilder = 0;
     private System.Timers.Timer _timer;
     private bool _isTimeUp = false;
+    private int _currentPlayerIndex = 0;
+    public List<string> Players { get; set; } = new List<string>();
     public CashBuilder()
     {
         InitializeComponent();
@@ -44,8 +46,10 @@ public partial class CashBuilder : ContentPage
         }
     }
 
-    private void ShowQuestion(int index)
+    private async void ShowQuestion(int index)
     {
+        string playerName = Players[_currentPlayerIndex];
+        await DisplayAlert("Next up", $"{playerName}, it's your turn to play!", "OK");
         if (AnswerButton1 == null || AnswerButton2 == null || AnswerButton3 == null || QuestionLabel == null)
         {
             Console.WriteLine("No questions to show.");

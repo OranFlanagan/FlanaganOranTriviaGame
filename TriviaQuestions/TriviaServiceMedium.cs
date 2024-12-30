@@ -11,7 +11,7 @@ public class TriviaServiceMedium
 
     public async Task<TriviaResponseMedium> FetchTriviaAsync()
     {
-        var url = "https://opentdb.com/api.php?amount=5&category=9&difficulty=medium&type=multiple";
+        var url = "https://opentdb.com/api.php?amount=10&category=9&difficulty=medium&type=multiple";
         int retryCount = 0;
         const int maxRetries = 3;
         const int delay = 1000;

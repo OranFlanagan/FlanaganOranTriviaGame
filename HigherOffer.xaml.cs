@@ -15,11 +15,12 @@ namespace FlanaganOranTriviaGame;
 public partial class HigherOffer : ContentPage
 {
     private int _currentQuestionIndex = 0;
-    private string _correctAnswer;
-    private int cashAmount = 150000;
+    private int _correctAnswerCount = 0;
+    private int HardcashAmount = 150000;
     private readonly TriviaServiceHard HardQuestionService;
     private List<TriviaQuestionHard> HardQuestions;
-    private readonly IAudioManager audioManager;
+    public List<string> _question = new List<string>();
+    public TaskCompletionSource<bool> TurnCompleted { get; private set; } = new TaskCompletionSource<bool>();
     public HigherOffer()
     {
         InitializeComponent();
@@ -52,11 +53,6 @@ public partial class HigherOffer : ContentPage
             Console.WriteLine("No questions to show.");
             return;
         }
-        if (HardQuestions == null || index < 0 || index >= HardQuestions.Count)
-        {
-            Console.WriteLine("No questions to show.");
-            return;
-        }
 
         var question = HardQuestions[index];
         Console.WriteLine($"Showing question: {question.question}");
@@ -74,12 +70,7 @@ public partial class HigherOffer : ContentPage
             question.correct_answer
         };
 
-        if(HardQuestions.Count == 5)
-        {
-            await DisplayAlert("Well Done", "You have made it through", "OK");
-            DisplayResults();
 
-        }
         answers = answers.OrderBy(x => random.Next()).ToList();
         Console.WriteLine($"Answers: {string.Join(", ", answers)}");
 
@@ -124,24 +115,35 @@ public partial class HigherOffer : ContentPage
             if (isCorrect)
             {
                 button.BackgroundColor = Colors.Green;
-                if (button == Question1)
-                    Question1.BackgroundColor = Colors.LightBlue;
-                else if (button == Question2)
-                    Question2.BackgroundColor = Colors.LightBlue;
-                else if (button == Question3)
-                    Question3.BackgroundColor = Colors.LightBlue;
-                else if (button == Question4)
-                    Question4.BackgroundColor = Colors.LightBlue;
-                else if (button == Question5)
-                    Question5.BackgroundColor = Colors.LightBlue;
-                else if (button == Question6)
-                    Question6.BackgroundColor = Colors.LightBlue;
+                _correctAnswerCount++;
+                if(_correctAnswerCount >= 6)
+                {
+                    NextPlayerTurn();
+                    return;
+                }
             }
             else
             {
                 button.BackgroundColor = Colors.Red;
             }
         }
+    }
+
+
+    private async void OnPlayerCompleted(object sender, EventArgs e)
+    {
+        TurnCompleted.TrySetResult(true);
+        NextPlayerTurn();
+        await StartGameForPlayers();
+    }
+
+    private async void NextPlayerTurn()
+    {
+        Console.WriteLine("Next player's turn");
+        _currentQuestionIndex = 0;
+        await DisplayAlert("Congratulations", $"You have won{HardcashAmount}", "OK");
+
+        await Navigation.PushAsync(new CashBuilder());
     }
 
     private void ResetButtonColor(IEnumerable<Button> buttons)
@@ -159,15 +161,18 @@ public partial class HigherOffer : ContentPage
         Console.WriteLine("New question loaded");
     }
 
+    private async Task StartGameForPlayers()
+    { 
+        await Navigation.PushAsync(new CashBuilder());
+
+        await Task.Delay(2000);
+    }
+
+
     public class QuizData
     {
         public string Question { get; set; }
         public string[] Answers { get; set; }
         public string Correct { get; set; }
-    }
-    private async void DisplayResults()
-    {
-        _currentQuestionIndex = 0;
-        await Navigation.PushAsync(new CashBuilder());
     }
 }

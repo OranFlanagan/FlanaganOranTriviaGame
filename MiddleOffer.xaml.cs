@@ -1,22 +1,26 @@
 using Microsoft.Maui.Dispatching;
 using System.Security.Cryptography.X509Certificates;
 using Microsoft.Maui.Controls;
+using System.Text.Json;
 using System.Net.Http.Json;
 using static System.Net.WebRequestMethods;
 using FlanaganOranTriviaGame.TriviaQuestions;
 using Microsoft.Maui.Platform;
 using Plugin.Maui.Audio;
-using System.ComponentModel;
 using Microsoft.Maui.Graphics;
+using System.Runtime.CompilerServices;
 
 namespace FlanaganOranTriviaGame;
 
 public partial class MiddleOffer : ContentPage
 {
+    private int _currentQuestionIndex = 0;
+    private int _correctAnswerCount = 0;
+    private int HardcashAmount = 150000;
     private readonly TriviaServiceMedium MediumQuestionService;
     private List<TriviaQuestionMedium> MediumQuestions;
-    private int _currentQuestionIndex = 0;
-
+    public List<string> _question = new List<string>();
+    public TaskCompletionSource<bool> TurnCompleted { get; private set; } = new TaskCompletionSource<bool>();
     public MiddleOffer()
     {
         InitializeComponent();
@@ -26,6 +30,7 @@ public partial class MiddleOffer : ContentPage
 
     private async void LoadTrivia()
     {
+
         var triviaResponse = await MediumQuestionService.FetchTriviaAsync();
 
         if (triviaResponse?.Results != null && triviaResponse.Results.Any())
@@ -41,8 +46,14 @@ public partial class MiddleOffer : ContentPage
         }
     }
 
-    private void ShowQuestion(int index)
+    private async void ShowQuestion(int index)
     {
+        if (AnswerButton1 == null || AnswerButton2 == null || AnswerButton3 == null || QuestionLabel == null)
+        {
+            Console.WriteLine("No questions to show.");
+            return;
+        }
+
         var question = MediumQuestions[index];
         Console.WriteLine($"Showing question: {question.question}");
 
@@ -55,10 +66,14 @@ public partial class MiddleOffer : ContentPage
             .ToList() ?? new List<string>();
 
         var answers = new List<string>(selectedIncorrectAnswers)
-                {
-                    question.correct_answer
-                };
+        {
+            question.correct_answer
+        };
 
+        if (MediumQuestions.Count == 5)
+        {
+            DisplayResults();
+        }
         answers = answers.OrderBy(x => random.Next()).ToList();
         Console.WriteLine($"Answers: {string.Join(", ", answers)}");
 
@@ -86,8 +101,7 @@ public partial class MiddleOffer : ContentPage
         }
     }
 
-
-    private void OnNextClicked(object sender, EventArgs e)
+    public async void OnNextClicked(object sender, EventArgs e)
     {
         LoadNewQuestions(new List<Button> { AnswerButton1, AnswerButton2, AnswerButton3 });
         _currentQuestionIndex++;
@@ -96,27 +110,40 @@ public partial class MiddleOffer : ContentPage
             ShowQuestion(_currentQuestionIndex);
         }
     }
-
-
     private void OnAnswerClicked(object sender, EventArgs e)
     {
-
         if (sender is Button button && button.CommandParameter is bool isCorrect)
         {
             Console.WriteLine($"Button text: {button.Text}, IsCorrect: {isCorrect}");
             if (isCorrect)
             {
                 button.BackgroundColor = Colors.Green;
+                _correctAnswerCount++;
+                if (_correctAnswerCount >= 5)
+                {
+                    NextPlayerTurn();
+                    return;
+                }
             }
             else
             {
                 button.BackgroundColor = Colors.Red;
             }
         }
-        if (_currentQuestionIndex == 4)
-        {
-            DisplayResults();
-        }
+    }
+
+    private void OnPlayerCompleted(object sender, EventArgs e)
+    {
+        TurnCompleted.TrySetResult(true);
+        Navigation.PopAsync();
+    }
+
+    private async void NextPlayerTurn()
+    {
+        Console.WriteLine("Next player's turn");
+        _correctAnswerCount = 0;
+        await DisplayAlert("Congratulations", "You have won", "OK");
+        await Navigation.PushAsync(new CashBuilder());
     }
 
     private void ResetButtonColor(IEnumerable<Button> buttons)
@@ -134,9 +161,16 @@ public partial class MiddleOffer : ContentPage
         Console.WriteLine("New question loaded");
     }
 
+    public class QuizData
+    {
+        public string Question { get; set; }
+        public string[] Answers { get; set; }
+        public string Correct { get; set; }
+    }
     private async void DisplayResults()
     {
         _currentQuestionIndex = 0;
-        await Navigation.PushAsync(new TheChase());
+        await DisplayAlert("Congratulations", $"You have won{MediumQuestions.Count}", "OK");
+        await Navigation.PushAsync(new CashBuilder());
     }
 }
