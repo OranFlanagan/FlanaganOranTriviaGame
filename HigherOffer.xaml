@@ -3,25 +3,29 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="FlanaganOranTriviaGame.HigherOffer"
              Title="HigherOffer">
-    <VerticalStackLayout>
+    <ScrollView>
+        <VerticalStackLayout>
         <Grid>
             <VerticalStackLayout Spacing="10">
+                <Image Source="the_chaser.png" WidthRequest="300" HeightRequest="300" HorizontalOptions="Center" VerticalOptions="Center"/>
                 <Button BackgroundColor="Blue" Grid.Row="4" Grid.Column="0" WidthRequest="400"/>
-                <Button BackgroundColor="Blue" Grid.Row="4" Grid.Column="1" WidthRequest="350"/>
-                <Button BackgroundColor="Blue" Grid.Row="4" Grid.Column="2" WidthRequest="300"/>
-                <Button BackgroundColor="Blue" Grid.Row="4" Grid.Column="3" WidthRequest="250"/>
-                <Button BackgroundColor="Blue" Grid.Row="4" Grid.Column="4" WidthRequest="200"/>
-                <Button BackgroundColor="Blue" Grid.Row="4" Grid.Column="5" WidthRequest="150"/>
-                <Button BackgroundColor="Blue" Grid.Row="4" Grid.Column="6" WidthRequest="100"/>
+                <Button x:Name="Question1" BackgroundColor="Blue" Grid.Row="4" Grid.Column="1" WidthRequest="350"/>
+                <Button x:Name="Question2" BackgroundColor="Blue" Grid.Row="4" Grid.Column="2" WidthRequest="300"/>
+                <Button x:Name="Question3" BackgroundColor="Blue" Grid.Row="4" Grid.Column="3" WidthRequest="250"/>
+                <Button x:Name="Question4" BackgroundColor="Blue" Grid.Row="4" Grid.Column="4" WidthRequest="200"/>
+                <Button x:Name="Question5" BackgroundColor="Blue" Grid.Row="4" Grid.Column="5" WidthRequest="150"/>
+                <Button x:Name="Question6" BackgroundColor="Blue" Grid.Row="4" Grid.Column="6" WidthRequest="100"/>
                 <Label x:Name="QuestionLabel" FontSize="20" TextColor="White" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" Grid.Row="4" Grid.Column="7"/>
                 <Button x:Name="AnswerButton1" Text="Answer 1" ZIndex="1" Clicked="OnAnswerClicked" Grid.Row="4" Grid.Column="8" WidthRequest="300" BackgroundColor="Red" HorizontalOptions="FillAndExpand"/>
                 <Button x:Name="AnswerButton2" Text="Answer 2" ZIndex="1" Clicked="OnAnswerClicked" Grid.Row="4" Grid.Column="9" WidthRequest="300" BackgroundColor="Red" HorizontalOptions="FillAndExpand"/>
                 <Button x:Name="AnswerButton3" Text="Answer 3" ZIndex="1" Clicked="OnAnswerClicked" Grid.Row="4" Grid.Column="10" WidthRequest="300" BackgroundColor="Red" HorizontalOptions="FillAndExpand"/>
                 <Label x:Name="FeedbackLabel" FontSize="16" TextColor="Green" HorizontalOptions="Center" VerticalOptions="Center" IsVisible="False"/>
+
                 <HorizontalStackLayout Spacing="20" HorizontalOptions="Center">
                     <Button Text="Next" Clicked="OnNextClicked" Grid.Row="4" Grid.Column="1" BackgroundColor="Red"/>
                 </HorizontalStackLayout>
             </VerticalStackLayout>
         </Grid>
-    </VerticalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

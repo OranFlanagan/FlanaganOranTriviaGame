@@ -13,25 +13,25 @@ namespace FlanaganOranTriviaGame;
 
 public partial class MiddleOffer : ContentPage
 {
-    private readonly TriviaServiceMedium _CashBuilderService;
-    private List<TriviaQuestionMedium> _CashBuilderQuestions;
+    private readonly TriviaServiceMedium MediumQuestionService;
+    private List<TriviaQuestionMedium> MediumQuestions;
     private int _currentQuestionIndex = 0;
 
     public MiddleOffer()
     {
         InitializeComponent();
-        _CashBuilderService = new TriviaServiceMedium();
+        MediumQuestionService = new TriviaServiceMedium();
         LoadTrivia();
     }
 
     private async void LoadTrivia()
     {
-        var triviaResponse = await _CashBuilderService.FetchTriviaAsync();
+        var triviaResponse = await MediumQuestionService.FetchTriviaAsync();
 
         if (triviaResponse?.Results != null && triviaResponse.Results.Any())
         {
-            _CashBuilderQuestions = triviaResponse.Results;
-            Console.WriteLine($"Loaded {_CashBuilderQuestions.Count} questions.");
+            MediumQuestions = triviaResponse.Results;
+            Console.WriteLine($"Loaded {MediumQuestions.Count} questions.");
             ShowQuestion(_currentQuestionIndex);
         }
 
@@ -43,7 +43,7 @@ public partial class MiddleOffer : ContentPage
 
     private void ShowQuestion(int index)
     {
-        var question = _CashBuilderQuestions[index];
+        var question = MediumQuestions[index];
         Console.WriteLine($"Showing question: {question.question}");
 
         QuestionLabel.Text = System.Web.HttpUtility.HtmlDecode(question.question);
@@ -91,7 +91,7 @@ public partial class MiddleOffer : ContentPage
     {
         LoadNewQuestions(new List<Button> { AnswerButton1, AnswerButton2, AnswerButton3 });
         _currentQuestionIndex++;
-        if (_currentQuestionIndex < _CashBuilderQuestions.Count)
+        if (_currentQuestionIndex < MediumQuestions.Count)
         {
             ShowQuestion(_currentQuestionIndex);
         }

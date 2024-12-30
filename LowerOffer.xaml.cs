@@ -13,25 +13,25 @@ namespace FlanaganOranTriviaGame;
 
 public partial class LowerOffer : ContentPage
 {
-    private readonly TriviaServiceEasy _CashBuilderService;
-    private List<TriviaQuestionEasy> _CashBuilderQuestions;
+    private readonly TriviaServiceEasy EasyQuestionService;
+    private List<TriviaQuestionEasy> EasyQuestions;
     private int _currentQuestionIndex = 0;
 
     public LowerOffer()
     {
         InitializeComponent();
-        _CashBuilderService = new TriviaServiceEasy();
+        EasyQuestionService = new TriviaServiceEasy();
         LoadTrivia();
     }
 
     private async void LoadTrivia()
     {
-        var triviaResponse = await _CashBuilderService.FetchTriviaAsync();
+        var triviaResponse = await EasyQuestionService.FetchTriviaAsync();
 
         if (triviaResponse?.Results != null && triviaResponse.Results.Any())
         {
-            _CashBuilderQuestions = triviaResponse.Results;
-            Console.WriteLine($"Loaded {_CashBuilderQuestions.Count} questions.");
+            EasyQuestions = triviaResponse.Results;
+            Console.WriteLine($"Loaded {EasyQuestions.Count} questions.");
             ShowQuestion(_currentQuestionIndex);
         }
 
@@ -48,13 +48,13 @@ public partial class LowerOffer : ContentPage
             Console.WriteLine("No questions to show.");
             return;
         }
-        if (_CashBuilderQuestions == null || index < 0 || index >= _CashBuilderQuestions.Count)
+        if (EasyQuestions == null || index < 0 || index >= EasyQuestions.Count)
         {
             Console.WriteLine("No questions to show.");
             return;
         }
 
-        var question = _CashBuilderQuestions[index];
+        var question = EasyQuestions[index];
         Console.WriteLine($"Showing question: {question.question}");
 
         QuestionLabel.Text = System.Web.HttpUtility.HtmlDecode(question.question);
@@ -102,7 +102,7 @@ public partial class LowerOffer : ContentPage
     {
         LoadNewQuestions(new List<Button> { AnswerButton1, AnswerButton2, AnswerButton3 });
         _currentQuestionIndex++;
-        if (_currentQuestionIndex < _CashBuilderQuestions.Count)
+        if (_currentQuestionIndex < EasyQuestions.Count)
         {
             ShowQuestion(_currentQuestionIndex);
         }

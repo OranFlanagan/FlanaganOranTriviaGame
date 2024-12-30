@@ -8,6 +8,7 @@ using FlanaganOranTriviaGame.TriviaQuestions;
 using Microsoft.Maui.Platform;
 using Plugin.Maui.Audio;
 using Microsoft.Maui.Graphics;
+using System.Runtime.CompilerServices;
 
 namespace FlanaganOranTriviaGame;
 
@@ -15,24 +16,26 @@ public partial class HigherOffer : ContentPage
 {
     private int _currentQuestionIndex = 0;
     private string _correctAnswer;
-    private readonly TriviaServiceHard _CashBuilderService;
-    private List<TriviaQuestionHard> _CashBuilderQuestions;
+    private int cashAmount = 150000;
+    private readonly TriviaServiceHard HardQuestionService;
+    private List<TriviaQuestionHard> HardQuestions;
+    private readonly IAudioManager audioManager;
     public HigherOffer()
     {
         InitializeComponent();
-        _CashBuilderService = new TriviaServiceHard();
+        HardQuestionService = new TriviaServiceHard();
         LoadTrivia();
     }
 
     private async void LoadTrivia()
     {
 
-        var triviaResponse = await _CashBuilderService.FetchTriviaAsync();
+        var triviaResponse = await HardQuestionService.FetchTriviaAsync();
 
         if (triviaResponse?.Results != null && triviaResponse.Results.Any())
         {
-            _CashBuilderQuestions = triviaResponse.Results;
-            Console.WriteLine($"Loaded {_CashBuilderQuestions.Count} questions.");
+            HardQuestions = triviaResponse.Results;
+            Console.WriteLine($"Loaded {HardQuestions.Count} questions.");
             ShowQuestion(_currentQuestionIndex);
         }
 
@@ -42,20 +45,20 @@ public partial class HigherOffer : ContentPage
         }
     }
 
-    private void ShowQuestion(int index)
+    private async void ShowQuestion(int index)
     {
         if (AnswerButton1 == null || AnswerButton2 == null || AnswerButton3 == null || QuestionLabel == null)
         {
             Console.WriteLine("No questions to show.");
             return;
         }
-        if (_CashBuilderQuestions == null || index < 0 || index >= _CashBuilderQuestions.Count)
+        if (HardQuestions == null || index < 0 || index >= HardQuestions.Count)
         {
             Console.WriteLine("No questions to show.");
             return;
         }
 
-        var question = _CashBuilderQuestions[index];
+        var question = HardQuestions[index];
         Console.WriteLine($"Showing question: {question.question}");
 
         QuestionLabel.Text = System.Web.HttpUtility.HtmlDecode(question.question);
@@ -71,6 +74,12 @@ public partial class HigherOffer : ContentPage
             question.correct_answer
         };
 
+        if(HardQuestions.Count == 5)
+        {
+            await DisplayAlert("Well Done", "You have made it through", "OK");
+            DisplayResults();
+
+        }
         answers = answers.OrderBy(x => random.Next()).ToList();
         Console.WriteLine($"Answers: {string.Join(", ", answers)}");
 
@@ -102,7 +111,7 @@ public partial class HigherOffer : ContentPage
     {
         LoadNewQuestions(new List<Button> { AnswerButton1, AnswerButton2, AnswerButton3 });
         _currentQuestionIndex++;
-        if (_currentQuestionIndex < _CashBuilderQuestions.Count)
+        if (_currentQuestionIndex < HardQuestions.Count)
         {
             ShowQuestion(_currentQuestionIndex);
         }
@@ -115,6 +124,18 @@ public partial class HigherOffer : ContentPage
             if (isCorrect)
             {
                 button.BackgroundColor = Colors.Green;
+                if (button == Question1)
+                    Question1.BackgroundColor = Colors.LightBlue;
+                else if (button == Question2)
+                    Question2.BackgroundColor = Colors.LightBlue;
+                else if (button == Question3)
+                    Question3.BackgroundColor = Colors.LightBlue;
+                else if (button == Question4)
+                    Question4.BackgroundColor = Colors.LightBlue;
+                else if (button == Question5)
+                    Question5.BackgroundColor = Colors.LightBlue;
+                else if (button == Question6)
+                    Question6.BackgroundColor = Colors.LightBlue;
             }
             else
             {
@@ -144,5 +165,9 @@ public partial class HigherOffer : ContentPage
         public string[] Answers { get; set; }
         public string Correct { get; set; }
     }
-
+    private async void DisplayResults()
+    {
+        _currentQuestionIndex = 0;
+        await Navigation.PushAsync(new CashBuilder());
+    }
 }
