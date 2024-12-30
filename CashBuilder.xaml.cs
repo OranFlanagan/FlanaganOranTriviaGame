@@ -46,7 +46,7 @@ public partial class CashBuilder : ContentPage
 
     private void ShowQuestion(int index)
     {
-        if(AnswerButton1 == null || AnswerButton2 == null || AnswerButton3 == null || QuestionLabel == null)
+        if (AnswerButton1 == null || AnswerButton2 == null || AnswerButton3 == null || QuestionLabel == null)
         {
             Console.WriteLine("No questions to show.");
             return;
@@ -58,19 +58,19 @@ public partial class CashBuilder : ContentPage
         }
 
         var question = _CashBuilderQuestions[index];
-        Console.WriteLine($"Showing question: {question.Question}");
+        Console.WriteLine($"Showing question: {question.question}");
 
-        QuestionLabel.Text = System.Web.HttpUtility.HtmlDecode(question.Question);
+        QuestionLabel.Text = System.Web.HttpUtility.HtmlDecode(question.question);
 
         var random = new Random();
-        var selectedIncorrectAnswers = question.IncorrectAnswers?
+        var selectedIncorrectAnswers = question.incorrect_answers?
             .OrderBy(x => random.Next())
             .Take(2)
             .ToList() ?? new List<string>();
 
         var answers = new List<string>(selectedIncorrectAnswers)
                 {
-                    question.CorrectAnswer
+                    question.correct_answer
                 };
 
         answers = answers.OrderBy(x => random.Next()).ToList();
@@ -86,9 +86,9 @@ public partial class CashBuilder : ContentPage
             AnswerButton2.Text = System.Web.HttpUtility.HtmlDecode(answers[1]);
             AnswerButton3.Text = System.Web.HttpUtility.HtmlDecode(answers[2]);
 
-            AnswerButton1.CommandParameter = answers[0] == question.CorrectAnswer;
-            AnswerButton2.CommandParameter = answers[1] == question.CorrectAnswer;
-            AnswerButton3.CommandParameter = answers[2] == question.CorrectAnswer;
+            AnswerButton1.CommandParameter = answers[0] == question.correct_answer;
+            AnswerButton2.CommandParameter = answers[1] == question.correct_answer;
+            AnswerButton3.CommandParameter = answers[2] == question.correct_answer;
 
             Console.WriteLine($"AnswerButton1 Text: {AnswerButton1.Text}");
             Console.WriteLine($"AnswerButton2 Text: {AnswerButton2.Text}");
@@ -103,6 +103,7 @@ public partial class CashBuilder : ContentPage
 
     private void OnNextClicked(object sender, EventArgs e)
     {
+        LoadNewQuestions(new List<Button> { AnswerButton1, AnswerButton2, AnswerButton3 });
         if (_isTimeUp)
         {
             return;
@@ -117,7 +118,6 @@ public partial class CashBuilder : ContentPage
 
     private void OnAnswerClicked(object sender, EventArgs e)
     {
-        AnswerButton3.BackgroundColor = Colors.DarkGreen;
 
         if (sender is Button button && button.CommandParameter is bool isCorrect)
         {
@@ -137,6 +137,21 @@ public partial class CashBuilder : ContentPage
                 return;
             }
         }
+    }
+
+    private void ResetButtonColor(IEnumerable<Button> buttons)
+    {
+        foreach (var button in buttons)
+        {
+            button.BackgroundColor = Colors.Red;
+        }
+    }
+
+    private void LoadNewQuestions(IEnumerable<Button> buttons)
+    {
+        ResetButtonColor(buttons);
+
+        Console.WriteLine("New question loaded");
     }
 
     private void StartTimer()
@@ -167,4 +182,3 @@ public partial class CashBuilder : ContentPage
         await Navigation.PushAsync(new TheChase());
     }
 }
-

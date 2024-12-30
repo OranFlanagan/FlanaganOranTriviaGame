@@ -5,12 +5,18 @@
              Title="HigherOffer">
     <VerticalStackLayout>
         <Grid>
-            
             <VerticalStackLayout Spacing="10">
-                <Label x:Name="QuestionLabel" FontSize="20" TextColor="White" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" Grid.Row="0" Grid.Column="1"/>
-                <Button x:Name="AnswerButton1" Text="Answer 1" ZIndex="1" Clicked="OnAnswerClicked" Grid.Row="1" Grid.Column="1" WidthRequest="300" BackgroundColor="Red" HorizontalOptions="FillAndExpand"/>
-                <Button x:Name="AnswerButton2" Text="Answer 2" ZIndex="1" Clicked="OnAnswerClicked" Grid.Row="1" Grid.Column="2" WidthRequest="300" BackgroundColor="Red" HorizontalOptions="FillAndExpand"/>
-                <Button x:Name="AnswerButton3" Text="Answer 3" ZIndex="1" Clicked="OnAnswerClicked" Grid.Row="1" Grid.Column="3" WidthRequest="300" BackgroundColor="Red" HorizontalOptions="EndAndExpand"/>
+                <Button BackgroundColor="Blue" Grid.Row="4" Grid.Column="0" WidthRequest="400"/>
+                <Button BackgroundColor="Blue" Grid.Row="4" Grid.Column="1" WidthRequest="350"/>
+                <Button BackgroundColor="Blue" Grid.Row="4" Grid.Column="2" WidthRequest="300"/>
+                <Button BackgroundColor="Blue" Grid.Row="4" Grid.Column="3" WidthRequest="250"/>
+                <Button BackgroundColor="Blue" Grid.Row="4" Grid.Column="4" WidthRequest="200"/>
+                <Button BackgroundColor="Blue" Grid.Row="4" Grid.Column="5" WidthRequest="150"/>
+                <Button BackgroundColor="Blue" Grid.Row="4" Grid.Column="6" WidthRequest="100"/>
+                <Label x:Name="QuestionLabel" FontSize="20" TextColor="White" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" Grid.Row="4" Grid.Column="7"/>
+                <Button x:Name="AnswerButton1" Text="Answer 1" ZIndex="1" Clicked="OnAnswerClicked" Grid.Row="4" Grid.Column="8" WidthRequest="300" BackgroundColor="Red" HorizontalOptions="FillAndExpand"/>
+                <Button x:Name="AnswerButton2" Text="Answer 2" ZIndex="1" Clicked="OnAnswerClicked" Grid.Row="4" Grid.Column="9" WidthRequest="300" BackgroundColor="Red" HorizontalOptions="FillAndExpand"/>
+                <Button x:Name="AnswerButton3" Text="Answer 3" ZIndex="1" Clicked="OnAnswerClicked" Grid.Row="4" Grid.Column="10" WidthRequest="300" BackgroundColor="Red" HorizontalOptions="FillAndExpand"/>
                 <Label x:Name="FeedbackLabel" FontSize="16" TextColor="Green" HorizontalOptions="Center" VerticalOptions="Center" IsVisible="False"/>
                 <HorizontalStackLayout Spacing="20" HorizontalOptions="Center">
                     <Button Text="Next" Clicked="OnNextClicked" Grid.Row="4" Grid.Column="1" BackgroundColor="Red"/>
