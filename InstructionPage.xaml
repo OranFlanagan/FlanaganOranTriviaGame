@@ -1,16 +1,34 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="FlanaganOranTriviaGame.InstructionPage"
-             Title="InstructionPage">
-    <VerticalStackLayout>
-        <Label Text="Instructions for The Chase:" FontSize="Header" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
-        <Label Text="The Chase...It isn't just a Quiz, its a race."/>
-        <Label Text=""/>
-        <Label Text="Begin the game by clicking start and once you and your friends have all placed entered their names the game will begin. 
-       Once you click begin you are put into the cash builder round answering a minutes worth of quick fire questions to build up as much as you can (each correct answer is £1,000
-       Now its time for each contestant to each face and go head-to-head with the chaser
-       If players answers questions correctly they can move one step away towards saftey, but if the Chaser gets the question right they move one step closer to catching you
-       If the Chaser catches the contestent, they lose their cash."/>
+             x:Class="FlanaganOranTriviaGame.InstructionPage">
+    <VerticalStackLayout Padding="10">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="65"/>
+                <RowDefinition Height="65"/>
+                <RowDefinition Height="75"/>
+                <RowDefinition Height="75"/>
+                <RowDefinition Height="70"/>
+                <RowDefinition Height="300"/>
+            </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="500"/>
+                    <ColumnDefinition Width="*"/>
+                    
+                </Grid.ColumnDefinitions>
+                <Button Text="Game Instructions" BackgroundColor="Red" TextColor="White" WidthRequest="200" HeightRequest="50" Grid.Row="0" Grid.Column="1"/>
+            <Label Text="1. The  game  begins  when  you  press  the  start  button." Grid.Row="1" Grid.Column="1" FontSize="25"/>
+            <Label Text="2. Fill  in  your  name  followed  by  your  three  friends'  names." Grid.Row="2" Grid.Column="1" FontSize="25"/>
+            <Label Text="3. This  is  the  cash  builder  round,  where  you  press  to  answer  as  many  questions  as  possible  within  the  minute  time  limit." Grid.Row="3" Grid.Column="1" FontSize="25"/>
+            <Label Text="4. You  will  see  your  amount  earned  in  the  cash  builder  round  and  be  offered  a  higher  or  lower  amount" Grid.Row="4" Grid.Column="1" FontSize="25"/>
+            <Label Text="5. You  will  now  face  the  Chaser  in  a  head-to-head  battle  to  work  your  way  down  the  ladder  to  reach  home  safely  with  your  cash  amount." Grid.Row="5" Grid.Column="1" FontSize="25"/>
+            <Label Text="6. Once  all  players  finish  there  head-to-head  the  game  ends  and  all  players  leave  with  the  money  they  chose." Grid.Row="6" Grid.Column="1" FontSize="25"/>
+            <Button Text="The Chase... Its not just a game its a race!" BackgroundColor="Red" TextColor="White" WidthRequest="300" HeightRequest="50" Grid.Row="7" Grid.Column="1"/>
+        </Grid>
+        
     </VerticalStackLayout>
 </ContentPage>

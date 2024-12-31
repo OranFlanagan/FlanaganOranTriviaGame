@@ -47,16 +47,15 @@ namespace FlanaganOranTriviaGame
                     await DisplayAlert("Error", "No players available!", "OK");
                     return;
                 }
-            if (_currentPlayerIndex < Players.Count - 1)
+
+            if (_currentPlayerIndex < Players.Count)
             {
                 _currentPlayerIndex++;
             }
-            else
-            {
-                _currentPlayerIndex = 0;
-            }
+
             CurrentPlayerName = Players[_currentPlayerIndex];
             await Navigation.PushAsync(new CashBuilder());
+            
 
             var begin = audioManager.CreatePlayer(await FileSystem.OpenAppPackageFileAsync("_The_Chase_Theme_Music_.mp3"));
             begin.Play();

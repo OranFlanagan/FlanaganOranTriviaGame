@@ -35,8 +35,6 @@ public partial class CashBuilder : ContentPage
 
     private async void LoadTrivia()
     {
-        //string playerName = MainPage.CurrentPlayerName;
-        //await DisplayAlert("Next up", $"{playerName}, it's your turn to play!", "OK");
         var triviaResponse = await _CashBuilderService.FetchTriviaAsync();
 
         if (triviaResponse?.Results != null && triviaResponse.Results.Any())
@@ -117,6 +115,7 @@ public partial class CashBuilder : ContentPage
         {
             return;
         }
+
         _currentQuestionIndex++;
         if (_currentQuestionIndex < _CashBuilderQuestions.Count)
         {
@@ -125,7 +124,7 @@ public partial class CashBuilder : ContentPage
     }
 
 
-    private void OnAnswerClicked(object sender, EventArgs e)
+    private async void OnAnswerClicked(object sender, EventArgs e)
     {
 
         if (sender is Button button && button.CommandParameter is bool isCorrect)

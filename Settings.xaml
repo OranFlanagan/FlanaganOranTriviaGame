@@ -2,17 +2,29 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="FlanaganOranTriviaGame.Settings"
-             Title="Settings"
              Style="{DynamicResource ContentPageStyle}">
     <ScrollView>
         <StackLayout>
-            <Label Text="Welcome the settings" FontAttributes="Bold" FontSize="Header"/>
-            <Label Text="Here you can meet your chaser! The Chaser you will be playing against is Shawn 'The Dark Destroyer' Wallace"/>
-            <Image Source="the_chaser.png"/>
-            <Button Text="Dark mode" Clicked="DarkMode_Clicked"/>
-            <Button Text="Light mode" Clicked="LightMode_Clicked"/>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
 
-            <Label Text="{Binding Player1}"/>
-        </StackLayout>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Image Source="the_chaser_standing.png" Grid.Row="0" Grid.Column="0" WidthRequest="500" HeightRequest="500"/>
+                <Button Text="Settings" WidthRequest="300" HeightRequest="85" TextColor="White" FontAttributes="Bold" FontSize="Header" BackgroundColor="Red" Grid.Row="0" Grid.Column="1"/>
+                <Label Text="Here you can meet your chaser! The Chaser you will be playing against is Shawn 'The Dark Destroyer' Wallace" Grid.Row="1"  HorizontalTextAlignment="Center" Grid.Column="1"/>
+                <Button Text="Dark mode" Clicked="DarkMode_Clicked" Grid.Row="2" Grid.Column="1" BackgroundColor="Red" TextColor="White"/>
+                <Button Text="Light mode" Clicked="LightMode_Clicked" Grid.Row="3" Grid.Column="1" BackgroundColor="Red" TextColor="White"/>
+            </Grid>
+            </StackLayout>
     </ScrollView>
 </ContentPage>
