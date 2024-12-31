@@ -16,7 +16,7 @@ public partial class MiddleOffer : ContentPage
 {
     private int _currentQuestionIndex = 0;
     private int _correctAnswerCount = 0;
-    private int HardcashAmount = 150000;
+    int MediumCashAmount = CashBuilder.cashBuilder;
     private readonly TriviaServiceMedium MediumQuestionService;
     private List<TriviaQuestionMedium> MediumQuestions;
     public List<string> _question = new List<string>();
@@ -132,20 +132,21 @@ public partial class MiddleOffer : ContentPage
         }
     }
 
-    private void OnPlayerCompleted(object sender, EventArgs e)
+    private async void OnPlayerCompleted(object sender, EventArgs e)
     {
         TurnCompleted.TrySetResult(true);
-        Navigation.PopAsync();
+        NextPlayerTurn();
+        await StartGameForPlayers();
     }
 
     private async void NextPlayerTurn()
     {
         Console.WriteLine("Next player's turn");
-        _correctAnswerCount = 0;
-        await DisplayAlert("Congratulations", "You have won", "OK");
+        _currentQuestionIndex = 0;
+        await DisplayAlert("Congratulations", $"You have won £{MediumCashAmount}", "OK");
+
         await Navigation.PushAsync(new CashBuilder());
     }
-
     private void ResetButtonColor(IEnumerable<Button> buttons)
     {
         foreach (var button in buttons)
@@ -160,6 +161,12 @@ public partial class MiddleOffer : ContentPage
 
         Console.WriteLine("New question loaded");
     }
+    private async Task StartGameForPlayers()
+    {
+        await Navigation.PushAsync(new CashBuilder());
+
+        await Task.Delay(2000);
+    }
 
     public class QuizData
     {
@@ -170,7 +177,7 @@ public partial class MiddleOffer : ContentPage
     private async void DisplayResults()
     {
         _currentQuestionIndex = 0;
-        await DisplayAlert("Congratulations", $"You have won{MediumQuestions.Count}", "OK");
+        await DisplayAlert("Congratulations", $"You have won{MediumCashAmount}", "OK");
         await Navigation.PushAsync(new CashBuilder());
     }
 }

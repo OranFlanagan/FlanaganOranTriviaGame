@@ -12,11 +12,12 @@ namespace FlanaganOranTriviaGame
     public partial class MainPage : ContentPage
     {
         public List<string> Players { get; set; } = new List<string>();
-        public int CashBuilder;
+        private int _currentPlayerIndex = -1;
         private bool isDarkTheme = true;
         private readonly IAudioManager audioManager;
-        //private int _currentPlayerIndex = 0;
-
+        public static string CurrentPlayerName { get; set; }
+        private List<string> player = new List<string>();
+        
         public MainPage(IAudioManager audioManager)
         {
             InitializeComponent();
@@ -27,20 +28,36 @@ namespace FlanaganOranTriviaGame
         {
             var enterNames = audioManager.CreatePlayer(await FileSystem.OpenAppPackageFileAsync("button_click_sound.mp3"));
             enterNames.Play();
-
             Players.Clear();
             for (int i = 1; i <= 4; i++)
             {
-                string playerName = await DisplayPromptAsync($"Player {i}", "Enter your name");
-                
-                if (string.IsNullOrWhiteSpace(playerName))
+                string playerNames = await DisplayPromptAsync($"Player {i}", "Enter your name");
+
+                if (string.IsNullOrWhiteSpace(playerNames))
                 {
                     await DisplayAlert("Error", $"Player{i} must enter a valid name to play.", "OK");
                     return;
                 }
-                    Players.Add(playerName);
+                Players.Add(playerNames);
+
             }
+
+            if (Players == null || Players.Count == 0)
+                {
+                    await DisplayAlert("Error", "No players available!", "OK");
+                    return;
+                }
+            if (_currentPlayerIndex < Players.Count - 1)
+            {
+                _currentPlayerIndex++;
+            }
+            else
+            {
+                _currentPlayerIndex = 0;
+            }
+            CurrentPlayerName = Players[_currentPlayerIndex];
             await Navigation.PushAsync(new CashBuilder());
+
             var begin = audioManager.CreatePlayer(await FileSystem.OpenAppPackageFileAsync("_The_Chase_Theme_Music_.mp3"));
             begin.Play();
         }

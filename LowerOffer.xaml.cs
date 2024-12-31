@@ -132,17 +132,19 @@ public partial class LowerOffer : ContentPage
         }
     }
 
-    private void OnPlayerCompleted(object sender, EventArgs e)
+    private async void OnPlayerCompleted(object sender, EventArgs e)
     {
         TurnCompleted.TrySetResult(true);
-        Navigation.PopAsync();
+        NextPlayerTurn();
+        await StartGameForPlayers();
     }
 
     private async void NextPlayerTurn()
     {
         Console.WriteLine("Next player's turn");
-        _correctAnswerCount = 0;
-        await DisplayAlert("Congratulations", "You have won", "OK");
+        _currentQuestionIndex = 0;
+        await DisplayAlert("Congratulations", $"You have lossed ${EasyCashAmount}", ":(");
+
         await Navigation.PushAsync(new CashBuilder());
     }
 
@@ -159,6 +161,12 @@ public partial class LowerOffer : ContentPage
         ResetButtonColor(buttons);
 
         Console.WriteLine("New question loaded");
+    }
+    private async Task StartGameForPlayers()
+    {
+        await Navigation.PushAsync(new CashBuilder());
+
+        await Task.Delay(2000);
     }
 
     public class QuizData

@@ -16,7 +16,7 @@ public partial class HigherOffer : ContentPage
 {
     private int _currentQuestionIndex = 0;
     private int _correctAnswerCount = 0;
-    private int HardcashAmount = 150000;
+    private int HardCashAmount = 150000;
     private readonly TriviaServiceHard HardQuestionService;
     private List<TriviaQuestionHard> HardQuestions;
     public List<string> _question = new List<string>();
@@ -141,7 +141,7 @@ public partial class HigherOffer : ContentPage
     {
         Console.WriteLine("Next player's turn");
         _currentQuestionIndex = 0;
-        await DisplayAlert("Congratulations", $"You have won{HardcashAmount}", "OK");
+        await DisplayAlert("Congratulations", $"You have £{HardCashAmount}", "OK");
 
         await Navigation.PushAsync(new CashBuilder());
     }

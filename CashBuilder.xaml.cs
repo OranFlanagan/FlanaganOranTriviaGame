@@ -16,21 +16,27 @@ public partial class CashBuilder : ContentPage
     private readonly TriviaServiceCashBuilder _CashBuilderService;
     private List<TriviaQuestionCashBuilder> _CashBuilderQuestions;
     private int _currentQuestionIndex = 0;
-    public int cashBuilder = 0;
+    public static int cashBuilder = 0;
     private System.Timers.Timer _timer;
     private bool _isTimeUp = false;
-    private int _currentPlayerIndex = 0;
-    public List<string> Players { get; set; } = new List<string>();
+
     public CashBuilder()
     {
         InitializeComponent();
         _CashBuilderService = new TriviaServiceCashBuilder();
         StartTimer();
+
+        string playerName = MainPage.CurrentPlayerName;
+        Console.WriteLine($"Current Players name: {playerName}");
+
+        DisplayAlert("Next up", $"{playerName}, its your turn", "ok");
         LoadTrivia();
     }
 
     private async void LoadTrivia()
     {
+        //string playerName = MainPage.CurrentPlayerName;
+        //await DisplayAlert("Next up", $"{playerName}, it's your turn to play!", "OK");
         var triviaResponse = await _CashBuilderService.FetchTriviaAsync();
 
         if (triviaResponse?.Results != null && triviaResponse.Results.Any())
@@ -44,12 +50,11 @@ public partial class CashBuilder : ContentPage
         {
             await DisplayAlert("Error", "No trivia questions available.", "OK");
         }
+
     }
 
     private async void ShowQuestion(int index)
     {
-        string playerName = Players[_currentPlayerIndex];
-        await DisplayAlert("Next up", $"{playerName}, it's your turn to play!", "OK");
         if (AnswerButton1 == null || AnswerButton2 == null || AnswerButton3 == null || QuestionLabel == null)
         {
             Console.WriteLine("No questions to show.");
@@ -178,7 +183,7 @@ public partial class CashBuilder : ContentPage
 
     private async void DisplayResults()
     {
-        await DisplayAlert("Time's up!", $"You earned {cashBuilder}Pounds!", "OK");
+        await DisplayAlert("Time's up!", $"You earned £{cashBuilder}!", "OK");
 
         _currentQuestionIndex = 0;
         cashBuilder = 0;
