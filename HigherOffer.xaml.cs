@@ -128,21 +128,17 @@ public partial class HigherOffer : ContentPage
             }
         }
     }
-
-
     private async void OnPlayerCompleted(object sender, EventArgs e)
     {
         TurnCompleted.TrySetResult(true);
-        NextPlayerTurn();
-        await Navigation.PushAsync(new CashBuilder());
+        await NextPlayerTurn();
     }
 
-    private async void NextPlayerTurn()
+    private async Task NextPlayerTurn()
     {
         Console.WriteLine("Next player's turn");
         _currentQuestionIndex = 0;
         await DisplayAlert("Congratulations", $"You have £{HardCashAmount}", "OK");
-
         await Navigation.PushAsync(new CashBuilder());
     }
 

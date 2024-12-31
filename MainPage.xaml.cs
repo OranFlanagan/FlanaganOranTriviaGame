@@ -6,6 +6,7 @@ using static System.Net.WebRequestMethods;
 using FlanaganOranTriviaGame.TriviaQuestions;
 using Microsoft.Maui.Platform;
 using Plugin.Maui.Audio;
+using System.Diagnostics;
 /*A lot of the code is just copy and past with the variable names changed to appropriate names 
 for example the LoadTrivia, ShowQuestion OnNextClicked, OnAnswerClicked, OnPlayerCompleted, NextplayerTurn, ResetButtonColor and finally LoadNewQuestion*/
 namespace FlanaganOranTriviaGame
@@ -28,37 +29,42 @@ namespace FlanaganOranTriviaGame
             //plays the sound of the button clicked when any of the buttons are clicked 
             var enterNames = audioManager.CreatePlayer(await FileSystem.OpenAppPackageFileAsync("button_click_sound.mp3"));
             enterNames.Play();
-            Players.Clear();
-
-            //only lets four players and no more enter their names
-            for (int i = 1; i <= 4; i++)
+            if (Players.Count == 0)
             {
-                string playerNames = await DisplayPromptAsync($"Player {i}", "Enter your name");
-
-                if (string.IsNullOrWhiteSpace(playerNames))
+                //only lets four players and no more enter their names
+                for (int i = 1; i <= 4; i++)
                 {
-                    await DisplayAlert("Error", $"Player{i} must enter a valid name to play.", "OK");
-                    return;
-                }
-                Players.Add(playerNames);
+                    string playerNames = await DisplayPromptAsync($"Player {i}", "Enter your name");
 
+                    if (string.IsNullOrWhiteSpace(playerNames))
+                    {
+                        await DisplayAlert("Error", $"Player{i} must enter a valid name to play.", "OK");
+                        return;
+                    }
+                    Players.Add(playerNames);
+
+                }
             }
 
-            if (Players == null || Players.Count == 0)
+            if (Players.Count == 0)
             { 
                     await DisplayAlert("Error", "No players available!", "OK");
                     return;
             }
-
             //displays the current players name when CashBuilder is open
             CurrentPlayerName = Players[_currentPlayerIndex];
             await Navigation.PushAsync(new CashBuilder());
-            _currentPlayerIndex++;
+
+            if (_currentPlayerIndex < Players.Count)
+            {
+                _currentPlayerIndex++;
+            }
             
             var begin = audioManager.CreatePlayer(await FileSystem.OpenAppPackageFileAsync("_The_Chase_Theme_Music_.mp3"));
             begin.Play();
         }
 
+        
         //once the instruction button is clicked it calls and plays the instructions of the game
         private async void Instruction_Button_Clicked(object sender, EventArgs e)
         {
@@ -73,5 +79,7 @@ namespace FlanaganOranTriviaGame
             setting.Play();
             await Navigation.PushAsync(new Settings());
         }
+
+
     }
 }

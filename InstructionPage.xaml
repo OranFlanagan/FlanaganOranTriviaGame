@@ -6,28 +6,30 @@
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
-                <RowDefinition Height="65"/>
-                <RowDefinition Height="65"/>
                 <RowDefinition Height="75"/>
                 <RowDefinition Height="75"/>
-                <RowDefinition Height="70"/>
-                <RowDefinition Height="300"/>
+                <RowDefinition Height="75"/>
+                <RowDefinition Height="80"/>
+                <RowDefinition Height="80"/>
+                <RowDefinition Height="80"/>
+                <RowDefinition Height="150"/>
             </Grid.RowDefinitions>
 
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="500"/>
-                    <ColumnDefinition Width="*"/>
-                    
-                </Grid.ColumnDefinitions>
-                <Button Text="Game Instructions" BackgroundColor="Red" TextColor="White" WidthRequest="200" HeightRequest="50" Grid.Row="0" Grid.Column="1"/>
-            <Label Text="1. The  game  begins  when  you  press  the  start  button." Grid.Row="1" Grid.Column="1" FontSize="25"/>
-            <Label Text="2. Fill  in  your  name  followed  by  your  three  friends'  names." Grid.Row="2" Grid.Column="1" FontSize="25"/>
-            <Label Text="3. This  is  the  cash  builder  round,  where  you  press  to  answer  as  many  questions  as  possible  within  the  minute  time  limit." Grid.Row="3" Grid.Column="1" FontSize="25"/>
-            <Label Text="4. You  will  see  your  amount  earned  in  the  cash  builder  round  and  be  offered  a  higher  or  lower  amount" Grid.Row="4" Grid.Column="1" FontSize="25"/>
-            <Label Text="5. You  will  now  face  the  Chaser  in  a  head-to-head  battle  to  work  your  way  down  the  ladder  to  reach  home  safely  with  your  cash  amount." Grid.Row="5" Grid.Column="1" FontSize="25"/>
-            <Label Text="6. Once  all  players  finish  there  head-to-head  the  game  ends  and  all  players  leave  with  the  money  they  chose." Grid.Row="6" Grid.Column="1" FontSize="25"/>
-            <Button Text="The Chase... Its not just a game its a race!" BackgroundColor="Red" TextColor="White" WidthRequest="300" HeightRequest="50" Grid.Row="7" Grid.Column="1"/>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="500"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            
+            <Button Text="Game Instructions" BackgroundColor="Red" TextColor="White" WidthRequest="200" HeightRequest="50" Grid.Row="0" Grid.Column="1"/>
+            <Label Text="1. The  game  begins  when  you  press  the  start  button." Grid.Row="1" Grid.Column="1" FontSize="18"/>
+            <Label Text="2. Fill  in  your  name  followed  by  your  three  friends'  names." Grid.Row="2" Grid.Column="1" FontSize="18"/>
+            <Label Text="3. This  is  the  cash  builder  round,  where  you  press  to  answer  as  many  questions  as  possible  within  the  minute  time  limit." Grid.Row="3" Grid.Column="1" FontSize="18"/>
+            <Label Text="4. You  will  see  your  amount  earned  in  the  cash  builder  round  and  be  offered  a  higher  or  lower  amount" Grid.Row="4" Grid.Column="1" FontSize="18"/>
+            <Label Text="5. If the choice you make is the Higher offer then the questions become harder and you have to answer an extra question, but if you choose the lower option the questions become easier and you answer one less question" Grid.Row="5" Grid.Column="1" FontSize="18"/>
+            <Label Text="6. You  will  now  face  the  Chaser  in  a  head-to-head  battle  to  work  your  way  down  the  ladder  to  reach  home  safely  with  your  cash  amount." Grid.Row="6" Grid.Column="1" FontSize="18"/>
+            <Label Text="7. Once  all  players  finish  there  head-to-head  the  game  ends  and  all  players  leave  with  the  money  they  chose." Grid.Row="7" Grid.Column="1" FontSize="18"/>
+            <Button Text="The Chase... Its not just a game its a race!" BackgroundColor="Red" TextColor="White" WidthRequest="300" HeightRequest="50" Grid.Row="8" Grid.Column="1"/>
         </Grid>
         
     </VerticalStackLayout>

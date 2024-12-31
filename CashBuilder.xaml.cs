@@ -107,7 +107,6 @@ public partial class CashBuilder : ContentPage
         }
     }
 
-
     private void OnNextClicked(object sender, EventArgs e)
     {
         LoadNewQuestions(new List<Button> { AnswerButton1, AnswerButton2, AnswerButton3 });
@@ -122,7 +121,6 @@ public partial class CashBuilder : ContentPage
             ShowQuestion(_currentQuestionIndex);
         }
     }
-
 
     private async void OnAnswerClicked(object sender, EventArgs e)
     {
