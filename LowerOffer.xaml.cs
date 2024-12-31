@@ -17,6 +17,8 @@ public partial class LowerOffer : ContentPage
     private int _currentQuestionIndex = 0;
     private int _correctAnswerCount = 0;
     private int EasyCashAmount = -150000;
+    //calls the questions and answers from the api in the TriviaServiceEasy class in the TriviaQuestions Files
+    //these are the same in eash .xaml files (HigherOffer and MiddleOffer)
     private readonly TriviaServiceEasy EasyQuestionService;
     private List<TriviaQuestionEasy> EasyQuestions;
     public List<string> _question = new List<string>();
@@ -27,10 +29,9 @@ public partial class LowerOffer : ContentPage
         EasyQuestionService = new TriviaServiceEasy();
         LoadTrivia();
     }
-
+    //Gets the trivia and answers from the api gives and gives them variable names 
     private async void LoadTrivia()
     {
-
         var triviaResponseEasy = await EasyQuestionService.FetchTriviaAsync();
 
         if (triviaResponseEasy?.Results != null && triviaResponseEasy.Results.Any())
@@ -45,7 +46,7 @@ public partial class LowerOffer : ContentPage
             await DisplayAlert("Error", "No trivia questions available.", "OK");
         }
     }
-
+    //Gets the variables from LoadTrivia and prints them out succsefully
     private async void ShowQuestion(int index)
     {
         if (AnswerButton1 == null || AnswerButton2 == null || AnswerButton3 == null || QuestionLabel == null)
@@ -100,7 +101,8 @@ public partial class LowerOffer : ContentPage
             Console.WriteLine("Not enough answers to show.");
         }
     }
-
+    //once the Button and the bottom of the page is clicked it goes to the next question
+    //weather or not the question is answerd it will move on once the next button is clicked 
     public async void OnNextClicked(object sender, EventArgs e)
     {
         LoadNewQuestions(new List<Button> { AnswerButton1, AnswerButton2, AnswerButton3 });
@@ -110,6 +112,7 @@ public partial class LowerOffer : ContentPage
             ShowQuestion(_currentQuestionIndex);
         }
     }
+    //if the player gets the question right the button becomes green
     private void OnAnswerClicked(object sender, EventArgs e)
     {
         if (sender is Button button && button.CommandParameter is bool isCorrect)
@@ -139,6 +142,7 @@ public partial class LowerOffer : ContentPage
         await StartGameForPlayers();
     }
 
+    //once the player is done with playing the lower offer moves on to a new version of the Cash builder page that introduces the new player ny name
     private async void NextPlayerTurn()
     {
         Console.WriteLine("Next player's turn");
@@ -147,7 +151,7 @@ public partial class LowerOffer : ContentPage
 
         await Navigation.PushAsync(new CashBuilder());
     }
-
+    //if the player gets the question right the button changes to green but this peice of code changes it back to red 
     private void ResetButtonColor(IEnumerable<Button> buttons)
     {
         foreach (var button in buttons)

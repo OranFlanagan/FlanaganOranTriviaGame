@@ -25,13 +25,13 @@ public partial class CashBuilder : ContentPage
         InitializeComponent();
         _CashBuilderService = new TriviaServiceCashBuilder();
         StartTimer();
-
         string playerName = MainPage.CurrentPlayerName;
         Console.WriteLine($"Current Players name: {playerName}");
 
         DisplayAlert("Next up", $"{playerName}, its your turn", "ok");
         LoadTrivia();
     }
+    
 
     private async void LoadTrivia()
     {

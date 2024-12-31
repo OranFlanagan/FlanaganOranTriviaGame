@@ -1,4 +1,4 @@
-using Microsoft.Maui.Dispatching;
+ using Microsoft.Maui.Dispatching;
 using System.Security.Cryptography.X509Certificates;
 using Microsoft.Maui.Controls;
 using System.Text.Json;
@@ -134,7 +134,7 @@ public partial class HigherOffer : ContentPage
     {
         TurnCompleted.TrySetResult(true);
         NextPlayerTurn();
-        await StartGameForPlayers();
+        await Navigation.PushAsync(new CashBuilder());
     }
 
     private async void NextPlayerTurn()
@@ -159,13 +159,6 @@ public partial class HigherOffer : ContentPage
         ResetButtonColor(buttons);
 
         Console.WriteLine("New question loaded");
-    }
-
-    private async Task StartGameForPlayers()
-    { 
-        await Navigation.PushAsync(new CashBuilder());
-
-        await Task.Delay(2000);
     }
 
 
